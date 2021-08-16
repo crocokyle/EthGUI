@@ -1,0 +1,17 @@
+body {
+    margin-top: 1vh;
+    padding-right: 1vh;
+}
+
+#main-content {
+    margin: auto;
+}
+
+#theme-controls {
+    float: right;
+}
+
+#theme-button {
+    padding: 1vh;
+    margin-left: 1vh;
+}

@@ -1,17 +1,41 @@
 <html>
     <head>
+        <link rel="stylesheet" id="theme" type="text/css" href="css/water.min.css">
+        <link rel="stylesheet" id="theme" type="text/css" href="css/style.css">
         <title>
+            EthGUI
         </title>
+        <script>
+            function toggleTheme() {
+
+                var theme = document.getElementsByTagName('link')[0];
+                var button = document.getElementById('theme-button');
+                
+                if (theme.getAttribute('href') == 'css/water.min.css') {
+                    theme.setAttribute('href', 'css/dark.min.css');
+                    button.textContent = 'Dark';
+                } else if (theme.getAttribute('href') == 'css/dark.min.css') {
+                    theme.setAttribute('href', 'css/light.min.css');
+                    button.textContent = 'Light';
+                } else {
+                    theme.setAttribute('href', 'css/water.min.css');
+                    button.textContent = 'Auto';
+                }
+            }
+        </script>
     </head>
     <body>
-        <h1>
-            Test Project
-        </h1>
-        <div id="address-div">
-            <form>
-                <label for="address">Eth Wallet Address</label>
-                <input type="text" id="address-box" autofocus>
-            </form>
+        <div id="main-content">
+            <div id="theme-controls">
+                <label>Theme:</label>
+                <button id="theme-button" onclick="toggleTheme()">Auto</button>
+            </div>
+            <div id="address-div">
+                <form>
+                    <label>Wallet Address:</label>
+                    <input type="text" id="address-box" autofocus>
+                </form>
+            </div>
         </div>
     </body>
 </html>
