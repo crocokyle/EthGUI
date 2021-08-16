@@ -1,0 +1,22 @@
+{
+  "name": "ethgui",
+  "version": "1.0.0",
+  "description": "An open source, graphical etherium miner based on nsfminer.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crocokyle/ethgui.git"
+  },
+  "author": "Kyle Dixon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/crocokyle/ethgui/issues"
+  },
+  "homepage": "https://github.com/crocokyle/ethgui#readme",
+  "dependencies": {
+    "electron": "^13.1.9"
+  }
+}
