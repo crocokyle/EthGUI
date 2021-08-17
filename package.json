@@ -1,5 +1,5 @@
 {
-  "name": "ethgui",
+  "name": "EthGUI",
   "version": "1.0.0",
   "description": "An open source, graphical etherium miner based on nsfminer.",
   "main": "main.js",
