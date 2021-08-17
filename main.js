@@ -117,9 +117,11 @@ function openSettingsWindow() {
 }
 
 function startMining(state, address, tempLimit, pool){
-    // Change button state
+
     var button = document.getElementById('start-button');
-    button.textContent = 'Stop Mining';
+    var addressBox = document.getElementById('address-box');
+    var poolBox = document.getElementById('pool-selection');
+    var tempBox = document.getElementById('temp-limit');
 
     // Setup parameters
     const hostname = os.hostname()
@@ -146,6 +148,11 @@ function startMining(state, address, tempLimit, pool){
 
     // Start/stop mining
     if (state === "Start Mining!") {
+        // Update UI Elements
+        button.textContent = 'Stop Mining';
+        addressBox.disabled = true;
+        poolBox.disabled = true;
+        tempBox.disabled = true;
 
         console.log('Starting to mine with the following parameters: ');
         console.log(parameters)
@@ -168,7 +175,12 @@ function startMining(state, address, tempLimit, pool){
         running = false;
         spawn("taskkill", ["/pid", miner.pid, '/f', '/t']);
         console.log('Stopped mining');
+
+        // Update UI Elements
         button.textContent = 'Start Mining!';
+        addressBox.disabled = false;
+        poolBox.disabled = false;
+        tempBox.disabled = false;
     }
 }
 
