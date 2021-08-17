@@ -7,11 +7,39 @@ body {
     margin: auto;
 }
 
+#ui-controls {
+    float: left;    
+}
+
 #theme-controls {
     float: right;
 }
 
-#theme-button {
+.minimal-button {
     padding: 1vh;
     margin-left: 1vh;
+}
+
+#main-controls {
+    position: fixed;
+    left: 50%;
+    bottom: 20px;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
+}
+
+#address-div {
+    float: left;
+}
+
+#pool-selection-div {
+    float: left;
+}
+
+#start-button-div {
+    position: fixed;
+    left: 50%;
+    bottom: 0px;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
 }

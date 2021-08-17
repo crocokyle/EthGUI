@@ -95,3 +95,4 @@ function openSettingsWindow() {
     // Insert menu - comment out for dev menu
     Menu.setApplicationMenu(mainMenu);
 }
+
