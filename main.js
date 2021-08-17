@@ -177,17 +177,19 @@ function apiCall() {
         setTimeout(() => {
             request = '{"id":1,"jsonrpc":"2.0","method":"miner_getstatdetail"}'
             
-            socketClient = net.connect({host:'localhost', port:8888},  () => {
-                // 'connect' listener                
+            // Send the request
+            socketClient = net.connect({host:'localhost', port:8888},  () => {              
                 socketClient.write(request + '\r\n');
             });
         
+            // Listen for the response
             socketClient.on('data', (data) => {
                 var response = JSON.parse(data).result;
                 console.log(response);
                 socketClient.end();
             });
 
+            // On disconnect
             socketClient.on('end', () => {
                 console.log('disconnected from server');
             });
