@@ -70,7 +70,7 @@
             </div>
 
             <div id="button-div">
-                <button id="start-button" onclick="startMining()">Start Mining!</button>
+                <button id="start-button" onclick="startMining(document.getElementById('start-button').textContent, document.getElementById('address-box').value, document.getElementById('temp-limit').value, document.getElementById('pool-selection').value)">Start Mining!</button>
                 <a href="https://www.flexpool.io/miner/eth/0x516730C863b42f4Fde300C16506a33568bB16A8c" target="blank"><button id="pool-button">Pool Dashboard</button></a>
             </div>
 

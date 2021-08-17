@@ -1,12 +1,14 @@
 const electron = require('electron');
 const url = require('url');
 const path = require('path');
-var child = require('child_process').execFile;
+var child = require('child_process').exec;
+var spawn = require('child_process').spawn;
 
 const {app, BrowserWindow, Menu} = electron;
 
 let mainWindow;
 let settingsWindow;
+var miner;
 
 // Listen for app to be ready
 app.on('ready', function() {
@@ -102,26 +104,53 @@ function openSettingsWindow() {
 
     // Build menu from template
     const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
-    // Insert menu - comment out for dev menu
+    // Insert menu
     Menu.setApplicationMenu(mainMenu);
 }
 
-function startMining(){
+function startMining(state, address, tempLimit, pool){
+    // Change button state
+    var button = document.getElementById('start-button');
+    button.textContent = 'Stop Mining';
+
+    // Setup parameters
+    if (pool === "flexpool") {
+        var p = 'stratum1+ssl://' + address + '.3080@eth-us-west.flexpool.io:5555'
+    }
+
+    // Declare process and params
     var executablePath = "bin/miner.exe";
     var parameters = [
         '-P',
-        'stratum1+ssl://0x516730C863b42f4Fde300C16506a33568bB16A8c.3080@eth-us-west.flexpool.io:5555',
+        p,
         '-R',
         '--HWMON',
         '2',
         '--api-bind',
         '0.0.0.0:8888'
     ];
-    child(executablePath, parameters, function(err, data) {
-        if(err) {
-            console.error(err);
-        }
-        console.log(data.toString());
-    });
+
+    // Start/stop mining
+    if (state === "Start Mining!") {
+
+        console.log('Starting to mine with the following parameters: ');
+        console.log('Address: ' + address);
+        console.log('Temp Limit: ' + tempLimit);
+        console.log('Pool: ' + pool);
+        
+        miner = spawn(executablePath, parameters);
+        console.log(miner.stdout)
+        // child(executablePath, parameters, function(err, data) {
+        //     if(err) {
+        //         console.error(err);
+        //     }
+        //     console.log(data.toString());
+        // });
+
+    } else {
+        spawn("taskkill", ["/pid", miner.pid, '/f', '/t']);
+        console.log('Stopped mining');
+        button.textContent = 'Start Mining!';
+    }
 }
 
