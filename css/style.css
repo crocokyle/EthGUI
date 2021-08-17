@@ -1,6 +1,10 @@
 body {
     margin-top: 1vh;
     padding-right: 1vh;
+    padding-left: 1vh;
+    margin-right: 1vh;
+    margin-left: 1vh;
+
 }
 
 #main-content {

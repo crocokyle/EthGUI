@@ -25,7 +25,7 @@ app.on('ready', function() {
 
     // Load HTML into the BrowserWindow
     mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'easy.html'),
+        pathname: path.join(__dirname, 'html/easy.html'),
         protocol: 'file:',
         slashes: true
     }))
@@ -90,7 +90,7 @@ function openSettingsWindow() {
     });
     // Load HTML into the BrowserWindow
     settingsWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'settings.html'),
+        pathname: path.join(__dirname, 'html/settings.html'),
         protocol: 'file:',
         slashes: true
     }));

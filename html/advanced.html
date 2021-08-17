@@ -6,8 +6,8 @@
         <title>
             EthGUI
         </title>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-        <script src="main.js" type="text/javascript"></script>
+        <script src="js/d3.min.js"></script>
+        <script src="js/epoch.min.js"></script>
         <script>
             function toggleTheme() {
 
@@ -25,15 +25,26 @@
                     button.textContent = 'Auto';
                 }
 
+                var data = [
+                    { label: 'Layer 1', values: [ {x: 0, y: 0}, {x: 1, y: 1}, {x: 2, y: 2} ] },
+                    { label: 'Layer 2', values: [ {x: 0, y: 0}, {x: 1, y: 1}, {x: 2, y: 4} ] }
+                ];
+
+                var areaChartInstance = $('#area').epoch({
+                    type: 'area',
+                    data: data,
+                    axes: ['left', 'right', 'bottom']
+                });
             }
+
         </script>
     </head>
     <body>
         <div id="main-content">
 
             <div id="ui-controls">
-                <a href="advanced.html">
-                    <button id="interface-button" class="minimal-button">Easy Mode</button>
+                <a href="html/easy.html">
+                    <button id="interface-button" class="minimal-button">Advanced Mode</button>
                 </a>
             </div>
 
@@ -42,12 +53,10 @@
                 <button id="theme-button" class="minimal-button" onclick="toggleTheme()">Auto</button>
             </div>
 
-            <center>
-                <div id="api-text">
-                    <iframe src="http://localhost:8888">
-                    </iframe>
-                </div>
-            </center>
+            <div id="graphs">
+                <!--https://epochjs.github.io/epoch/real-time/-->
+                <div id="area" class="epoch category10" style="height: 200px;"></div>
+            </div>
 
             <div id="main-controls">
 
@@ -71,13 +80,13 @@
                 
                 <div id="temp-limit-div">
                     <label for="temp-limit">Temp Limit °C:</label>
-                    <input type="number" name="temp-limit" id="temp-limit" value="65" min="50" max="75">
+                    <input type="number" name="temp-limit" id="temp-limit" value="75" min="50" max="110">
                 </div>
 
             </div>
 
             <div id="button-div">
-                <button id="start-button" onclick="startMining()">Start Mining!</button>
+                <button id="start-button" onclick="someFunction()">Start Mining!</button>
                 <a href="https://www.flexpool.io/miner/eth/0x516730C863b42f4Fde300C16506a33568bB16A8c" target="blank"><button id="pool-button">Pool Dashboard</button></a>
             </div>
 
