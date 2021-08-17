@@ -1,22 +1,17 @@
-body {
-    margin-top: 1vh;
-    padding-right: 1vh;
-    padding-left: 1vh;
-    margin-right: 1vh;
-    margin-left: 1vh;
-
-}
-
 #main-content {
     margin: auto;
 }
 
 #ui-controls {
-    float: left;    
+    position: fixed;
+    top: 1vh;
+    left: 0; 
 }
 
 #theme-controls {
-    float: right;
+    position: fixed;
+    top: 1vh;
+    right: 0;
 }
 
 .minimal-button {
