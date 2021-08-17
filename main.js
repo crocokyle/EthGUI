@@ -4,7 +4,7 @@ const path = require('path');
 var child = require('child_process').exec;
 var spawn = require('child_process').spawn;
 var os = require('os');
-
+const net = require('net');
 
 const {app, BrowserWindow, Menu} = electron;
 
@@ -12,6 +12,8 @@ let mainWindow;
 let settingsWindow;
 var miner;
 var running;
+var refreshRate = 2000;
+var socketClient;
 
 // Listen for app to be ready
 app.on('ready', function() {
@@ -34,7 +36,7 @@ app.on('ready', function() {
         protocol: 'file:',
         slashes: true
     }))
-
+    
     // Quit on main frame closed
     mainWindow.on('closed', function(){
         app.quit();
@@ -71,6 +73,9 @@ if(process.platform == 'darwin'){
 
 // Add dev tools when not running prod
 if(process.env.NODE_ENV !== 'production'){
+    // Open dev tools by default
+    
+    // Create dev tools menu
     mainMenuTemplate.push({
         label: 'Dev Tools',
         submenu: [
@@ -170,20 +175,24 @@ function startMining(state, address, tempLimit, pool){
 function apiCall() {
     if (running) {
         setTimeout(() => {
-            console.log('interval')
-            const URL = "http://localhost:8888"; 
-            const RpcClient = require('../rpc-client.js');
-            const rpc = new RpcClient({ url: URL, debug: true });
+            request = '{"id":1,"jsonrpc":"2.0","method":"miner_getstatdetail"}'
+            
+            socketClient = net.connect({host:'localhost', port:8888},  () => {
+                // 'connect' listener                
+                socketClient.write(request + '\r\n');
+            });
+        
+            socketClient.on('data', (data) => {
+                var response = JSON.parse(data).result;
+                console.log(response);
+                socketClient.end();
+            });
 
-            const p = {
-                "id": 1,
-                "jsonrpc": "2.0",
-                "method": "miner_getstatdetail"
-            };
+            socketClient.on('end', () => {
+                console.log('disconnected from server');
+            });
 
-            rpc.call(p, console.log);
             apiCall();
-        }, 2000)
-    }
-    
+        }, refreshRate)
+    }   
 }
