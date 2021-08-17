@@ -36,7 +36,11 @@ body {
     float: left;
 }
 
-#start-button-div {
+#temp-limit-div {
+    float: left;
+}
+
+#button-div {
     position: fixed;
     left: 50%;
     bottom: 0px;

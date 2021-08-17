@@ -11,7 +11,11 @@ let settingsWindow;
 app.on('ready', function() {
     
     // Create new window
-    mainWindow = new BrowserWindow({});
+    mainWindow = new BrowserWindow({
+        width: 1000,
+        height: 500,
+        //frame: false,
+    });
 
     // Load HTML into the BrowserWindow
     mainWindow.loadURL(url.format({
