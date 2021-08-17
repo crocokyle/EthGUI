@@ -15,7 +15,7 @@ app.on('ready', function() {
 
     // Load HTML into the BrowserWindow
     mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'mainWindow.html'),
+        pathname: path.join(__dirname, 'easy.html'),
         protocol: 'file:',
         slashes: true
     }))
@@ -95,4 +95,3 @@ function openSettingsWindow() {
     // Insert menu - comment out for dev menu
     Menu.setApplicationMenu(mainMenu);
 }
-
