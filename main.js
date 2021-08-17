@@ -5,12 +5,13 @@ var child = require('child_process').exec;
 var spawn = require('child_process').spawn;
 var os = require('os');
 
+
 const {app, BrowserWindow, Menu} = electron;
-const hostname = os.hostname()
 
 let mainWindow;
 let settingsWindow;
 var miner;
+var running;
 
 // Listen for app to be ready
 app.on('ready', function() {
@@ -116,6 +117,7 @@ function startMining(state, address, tempLimit, pool){
     button.textContent = 'Stop Mining';
 
     // Setup parameters
+    const hostname = os.hostname()
     if (pool === "flexpool") {
         var p = 'stratum1+ssl://' + address + '.' + hostname + '@eth-us-west.flexpool.io:5555'
     }
@@ -129,11 +131,11 @@ function startMining(state, address, tempLimit, pool){
         '-R',
         '--HWMON',
         '2',
-        '--api-bind',
         '--tstop',
         tempLimit,
         '--tstart',
         tempLower,
+        '--api-bind',
         '0.0.0.0:8888'
     ];
 
@@ -154,11 +156,34 @@ function startMining(state, address, tempLimit, pool){
         //     }
         //     console.log(data.toString());
         // });
+        running = true;
+        apiCall();
 
     } else {
+        running = false;
         spawn("taskkill", ["/pid", miner.pid, '/f', '/t']);
         console.log('Stopped mining');
         button.textContent = 'Start Mining!';
     }
 }
 
+function apiCall() {
+    if (running) {
+        setTimeout(() => {
+            console.log('interval')
+            const URL = "http://localhost:8888"; 
+            const RpcClient = require('../rpc-client.js');
+            const rpc = new RpcClient({ url: URL, debug: true });
+
+            const p = {
+                "id": 1,
+                "jsonrpc": "2.0",
+                "method": "miner_getstatdetail"
+            };
+
+            rpc.call(p, console.log);
+            apiCall();
+        }, 2000)
+    }
+    
+}
