@@ -1,0 +1,95 @@
+<html>
+    <head>
+        <link rel="stylesheet" id="theme" type="text/css" href="css/water.min.css">
+        <link rel="stylesheet" id="theme" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/epoch.min.css">
+        <title>
+            EthGUI
+        </title>
+        <script src="js/d3.min.js"></script>
+        <script src="js/epoch.min.js"></script>
+        <script>
+            function toggleTheme() {
+
+                var theme = document.getElementsByTagName('link')[0];
+                var button = document.getElementById('theme-button');
+                
+                if (theme.getAttribute('href') == 'css/water.min.css') {
+                    theme.setAttribute('href', 'css/dark.min.css');
+                    button.textContent = 'Dark';
+                } else if (theme.getAttribute('href') == 'css/dark.min.css') {
+                    theme.setAttribute('href', 'css/light.min.css');
+                    button.textContent = 'Light';
+                } else {
+                    theme.setAttribute('href', 'css/water.min.css');
+                    button.textContent = 'Auto';
+                }
+
+                var data = [
+                    { label: 'Layer 1', values: [ {x: 0, y: 0}, {x: 1, y: 1}, {x: 2, y: 2} ] },
+                    { label: 'Layer 2', values: [ {x: 0, y: 0}, {x: 1, y: 1}, {x: 2, y: 4} ] }
+                ];
+
+                var areaChartInstance = $('#area').epoch({
+                    type: 'area',
+                    data: data,
+                    axes: ['left', 'right', 'bottom']
+                });
+            }
+
+        </script>
+    </head>
+    <body>
+        <div id="main-content">
+
+            <div id="ui-controls">
+                <a href="easy.html">
+                    <button id="interface-button" class="minimal-button">Advanced Mode</button>
+                </a>
+            </div>
+
+            <div id="theme-controls">
+                <label>Theme:</label>
+                <button id="theme-button" class="minimal-button" onclick="toggleTheme()">Auto</button>
+            </div>
+
+            <div id="graphs">
+                <!--https://epochjs.github.io/epoch/real-time/-->
+                <div id="area" class="epoch category10" style="height: 200px;"></div>
+            </div>
+
+            <div id="main-controls">
+
+                <div id="address-div">
+                    <label for="address-box">Wallet Address:</label>
+                    <form>
+                        <input type="text" id="address-box" value="0x516730C863b42f4Fde300C16506a33568bB16A8c" autofocus>
+                    </form>
+                </div>
+
+                <div id="pool-selection-div">
+                    <label for="pool-selection">Pool:</label>
+                    <!--https://www.reddit.com/r/EtherMining/comments/ma5oxk/best_eth_mining_pool_in_2021/-->
+                    <select name="pool-selection" id="pool-selection">
+                        <option value="flexpool">flexpool.io</option>
+                        <option value="ethermine">ethermine.org</option>
+                        <option value="binance">pool.binance.com</option>
+                        <option value="2miners">2miners.com</option>
+                    </select>
+                </div>
+                
+                <div id="temp-limit-div">
+                    <label for="temp-limit">Temp Limit °C:</label>
+                    <input type="number" name="temp-limit" id="temp-limit" value="75" min="50" max="110">
+                </div>
+
+            </div>
+
+            <div id="button-div">
+                <button id="start-button" onclick="someFunction()">Start Mining!</button>
+                <a href="https://www.flexpool.io/miner/eth/0x516730C863b42f4Fde300C16506a33568bB16A8c" target="blank"><button id="pool-button">Pool Dashboard</button></a>
+            </div>
+
+        </div>
+    </body>
+</html>

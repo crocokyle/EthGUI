@@ -1,6 +1,7 @@
 const electron = require('electron');
 const url = require('url');
 const path = require('path');
+var child = require('child_process').execFile;
 
 const {app, BrowserWindow, Menu} = electron;
 
@@ -12,9 +13,14 @@ app.on('ready', function() {
     
     // Create new window
     mainWindow = new BrowserWindow({
+
         width: 1000,
         height: 500,
         //frame: false,
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+        }
     });
 
     // Load HTML into the BrowserWindow
@@ -99,3 +105,23 @@ function openSettingsWindow() {
     // Insert menu - comment out for dev menu
     Menu.setApplicationMenu(mainMenu);
 }
+
+function startMining(){
+    var executablePath = "bin/miner.exe";
+    var parameters = [
+        '-P',
+        'stratum1+ssl://0x516730C863b42f4Fde300C16506a33568bB16A8c.3080@eth-us-west.flexpool.io:5555',
+        '-R',
+        '--HWMON',
+        '2',
+        '--api-bind',
+        '0.0.0.0:8888'
+    ];
+    child(executablePath, parameters, function(err, data) {
+        if(err) {
+            console.error(err);
+        }
+        console.log(data.toString());
+    });
+}
+
