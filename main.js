@@ -3,8 +3,10 @@ const url = require('url');
 const path = require('path');
 var child = require('child_process').exec;
 var spawn = require('child_process').spawn;
+var os = require('os');
 
 const {app, BrowserWindow, Menu} = electron;
+const hostname = os.hostname()
 
 let mainWindow;
 let settingsWindow;
@@ -115,10 +117,11 @@ function startMining(state, address, tempLimit, pool){
 
     // Setup parameters
     if (pool === "flexpool") {
-        var p = 'stratum1+ssl://' + address + '.3080@eth-us-west.flexpool.io:5555'
+        var p = 'stratum1+ssl://' + address + '.' + hostname + '@eth-us-west.flexpool.io:5555'
     }
 
     // Declare process and params
+    var tempLower = (parseInt(tempLimit)-5).toString()
     var executablePath = "bin/miner.exe";
     var parameters = [
         '-P',
@@ -127,6 +130,10 @@ function startMining(state, address, tempLimit, pool){
         '--HWMON',
         '2',
         '--api-bind',
+        '--tstop',
+        tempLimit,
+        '--tstart',
+        tempLower,
         '0.0.0.0:8888'
     ];
 
@@ -134,8 +141,9 @@ function startMining(state, address, tempLimit, pool){
     if (state === "Start Mining!") {
 
         console.log('Starting to mine with the following parameters: ');
+        console.log(parameters)
         console.log('Address: ' + address);
-        console.log('Temp Limit: ' + tempLimit);
+        console.log('Temp Limit: ' + tempLower + ' - ' + tempLimit);
         console.log('Pool: ' + pool);
         
         miner = spawn(executablePath, parameters);
