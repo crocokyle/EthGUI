@@ -39,10 +39,41 @@
     float: left;
 }
 
+#charts {
+    position: fixed;
+    top: 10vh;
+}
+
 #button-div {
     position: fixed;
     left: 50%;
     bottom: 0px;
     transform: translate(-50%, -50%);
     margin: 0 auto;
+}
+
+#hashrate-chart-div {
+    float: left; 
+    position: relative; 
+    width: 90vh;
+}
+
+#temp-chart-div {
+    float: left; 
+    position: relative; 
+    width: 90vh;
+}
+
+#pie-chart-div { 
+    position: fixed; 
+    bottom: 5vh;
+    right: 7vh;
+    height: 35vh; 
+    width: 35vh;
+}
+
+#information {
+    position: fixed; 
+    bottom: 5vh;
+    left: 7vh;
 }

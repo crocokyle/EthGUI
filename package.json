@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/crocokyle/ethgui#readme",
   "dependencies": {
+    "chart.js": "^3.5.0",
     "electron": "^13.1.9",
     "json-rpc-2.0": "^0.2.18",
     "request": "^2.88.2"
